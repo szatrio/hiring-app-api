@@ -8,4 +8,6 @@ Router
     .post ('/', controller.addEngineer) 
     .patch ('/:id_engineer', controller.editEngineer)
     .delete ('/:id_engineer', controller.deleteEngineer)
+    .get ('/search', controller.searchEngineer)
+    .get ('/sort', controller.sortEngineer)
 module.exports = Router

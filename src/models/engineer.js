@@ -43,5 +43,27 @@ module.exports = {
         }
       })
     })
+  },
+  searchEngineer: (name) => {
+    return new Promise((resolve, reject) => {
+      db.query(`SELECT * FROM engineer WHERE name LIKE '%${name}%'`, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
+  sortEngineer: (sort_by, order) => {
+    return new Promise((resolve, reject) => {
+      db.query(`SELECT * FROM engineer ORDER BY ${sort_by} ${order}`, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
   }
 };

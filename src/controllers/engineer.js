@@ -66,5 +66,28 @@ module.exports = {
       .catch(err => {
         console.log(err)
       })
+  },
+  searchEngineer: (req, res) => {
+    const name = req.query.name
+
+    model.searchEngineer(name)
+      .then(result => {
+        res.json(result)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  sortEngineer: (req, res) => {
+    const sort_by = req.query.sort_by
+    const order = req.query.order
+
+    model.sortEngineer(sort_by, order)
+      .then(result => {
+        res.json(result)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 };
