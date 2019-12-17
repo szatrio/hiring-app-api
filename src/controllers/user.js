@@ -1,6 +1,10 @@
 const model = require ('../models/user');
 const form = require ('../helpers/form');
 const bcryptjs = require('bcryptjs')
+
+const jwt = require('jsonwebtoken')
+const jwtPrivateKey = 'hujanturunlagi'
+
 const saltRounds = 10
 
 
@@ -42,7 +46,7 @@ module.exports = {
                         bcryptjs.hash(password, salt, (err, hash) => {
                             const data = { email, password: hash, role }
                 
-                            model.adduser(data)
+                            model.addUser(data)
                                 .then(resultQuery => {
                                     res.json({
                                         status: 200,
@@ -69,7 +73,7 @@ module.exports = {
                 message: 'Email not valid',
               })
             } 
-          } else {
+          }else {
             res.status(400).json({
                 status: 400,
                 message: 'email already exist'
@@ -86,21 +90,41 @@ module.exports = {
 
   editUser: (req, res) => {
     const id_user = req.params.id_user
-    const { email, username, password, role } = req.body
-    const data = {
-        email,
-        username,
-        password,
-        role,
-    }
+    const {email, password, hash, role} = req.body
 
-    model.editUser(data, id_user)
-      .then(result => {
-        res.json(result)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    if (validateEmail(email) == true){
+      if (validatePassword(password) == true){
+            bcryptjs.genSalt(saltRounds, (err, salt) => {
+                bcryptjs.hash(password, salt, (err, hash) => {
+                    const data = { email, password: hash, role }
+        
+                    model.editUser(data, id_user)
+                        .then(resultQuery => {
+                            res.json({
+                                status: 200,
+                                message: 'Success registering new user',
+                                data
+                            })
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            res.status(400).json({
+                                status: 400,
+                                message: 'Register was failed'
+                            })
+                        })
+                })
+            })
+        }else{
+          res.json({
+            message: 'Password not valid, lowercase and number are required',
+          })
+        }
+      }else{
+        res.json({
+          message: 'Email not valid',
+        })
+      }      
   },
   deleteUser: (req, res) => {
     const id_user = req.params.id_user
@@ -112,5 +136,41 @@ module.exports = {
       .catch(err => {
         console.log(err)
       })
-  }
+  },
+  loginUser: (req, res) => {
+    const email = req.body.email
+
+    model.loginUser(email)
+        .then(resultQuery => {
+            const id_user = resultQuery[0].id_user
+            const passwordHash = resultQuery[0].password
+            const password = req.body.password
+
+            if (bcryptjs.compareSync(password, passwordHash)) {
+                const token = jwt.sign({ id_user: id_user }, jwtPrivateKey, { expiresIn: '1h' })
+
+                res.json({
+                    status: 200,
+                    message: 'Login Success',
+                    data: {
+                        email,
+                        token
+                    }
+                })
+            } else {
+                res.json({
+                    status: 400,
+                    message: 'Password is incorrect'
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(400).json({
+                status: 400,
+                message: 'Email or Password is incorrect!'
+            })
+        })
+
+    }
 };
