@@ -32,40 +32,56 @@ module.exports = {
     let email = req.body.email
     let password = req.body.password
     let role = req.body.role
-    console.log(validatePassword(password))
-    if (validateEmail(email) == true){
-      if (validatePassword(password) == true){
-            bcryptjs.genSalt(saltRounds, (err, salt) => {
-                bcryptjs.hash(password, salt, (err, hash) => {
-                    const data = { email, password: hash, role }
-        
-                    model.adduser(data)
-                        .then(resultQuery => {
-                            res.json({
-                                status: 200,
-                                message: 'Success registering new user',
-                                data
-                            })
+    
+    model.emailCheck(email)
+    .then(resultQuery => {
+          if (resultQuery.length === 0) {
+            if (validateEmail(email) == true){
+              if (validatePassword(password) == true){
+                    bcryptjs.genSalt(saltRounds, (err, salt) => {
+                        bcryptjs.hash(password, salt, (err, hash) => {
+                            const data = { email, password: hash, role }
+                
+                            model.adduser(data)
+                                .then(resultQuery => {
+                                    res.json({
+                                        status: 200,
+                                        message: 'Success registering new user',
+                                        data
+                                    })
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                    res.status(400).json({
+                                        status: 400,
+                                        message: 'Register was failed'
+                                    })
+                                })
                         })
-                        .catch(err => {
-                            console.log(err)
-                            res.status(400).json({
-                                status: 400,
-                                message: 'Register was failed'
-                            })
-                        })
+                    })
+              }else{
+                res.json({
+                  message: 'Password not valid, lowercase and number are required',
                 })
+              }
+            }else{
+              res.json({
+                message: 'Email not valid',
+              })
+            } 
+          } else {
+            res.status(400).json({
+                status: 400,
+                message: 'email already exist'
             })
-      }else{
-        res.json({
-          message: 'Password not valid, lowercase and number are required',
+            }
         })
-      }
-    }else{
-      res.json({
-        message: 'Email not valid',
-      })
-    }           
+          .catch(err => {
+              res.status(400).json({
+                  status: 400,
+                  message: 'error get email from database'
+              })
+        })          
 },
 
   editUser: (req, res) => {
