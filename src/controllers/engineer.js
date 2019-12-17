@@ -15,14 +15,12 @@ module.exports = {
       });
   },
   addEngineer: (req, res) => {
-    const { name, description, skill, location, birth, showcase } = req.body
+    const { name, description, location, birth } = req.body
     const data = {
       name,
       description,
-      skill,
       location,
       birth,
-      showcase,
       date_created: new Date(),
       date_updated: new Date(),
     }
@@ -37,14 +35,12 @@ module.exports = {
   },
   editEngineer: (req, res) => {
     const id_engineer = req.params.id_engineer
-    const { name, description, skill, location, birth, showcase } = req.body
+    const { name, description, location, birth } = req.body
     const data = {
         name,
         description,
-        skill,
         location,
         birth,
-        showcase,
         date_updated: new Date(),
     }
 
@@ -69,8 +65,9 @@ module.exports = {
   },
   searchEngineer: (req, res) => {
     const name = req.query.name
+    const skill = req.query.skill
 
-    model.searchEngineer(name)
+    model.searchEngineer(name, skill)
       .then(result => {
         res.json(result)
       })
@@ -83,6 +80,19 @@ module.exports = {
     const order = req.query.order
 
     model.sortEngineer(sort_by, order)
+      .then(result => {
+        res.json(result)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  pageEngineer: (req, res) => {
+    const limit = req.query.limit
+    let page = req.query.page
+    page = limit*(page-1)
+
+    model.pageEngineer(limit, page)
       .then(result => {
         res.json(result)
       })
