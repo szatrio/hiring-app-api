@@ -8,9 +8,7 @@ Router
     .post ('/', controller.addEngineer) 
     .patch ('/:id_engineer', controller.editEngineer)
     .delete ('/:id_engineer', controller.deleteEngineer)
-    .get ('/search', controller.searchEngineer)
-    .get ('/sort', controller.sortEngineer)
-    .get ('/pages', controller.pageEngineer)
+    // .get ('/filter', controller.searchEngineer)
     
     // skills
     .get ('/:id_engineer/skills', controllerskill.getSkills)

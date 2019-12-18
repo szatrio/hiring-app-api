@@ -1,5 +1,19 @@
 const db = require ('../Configs/db');
 module.exports = {
+  getAllSkills: () => {
+    return new Promise ((resolve, reject) => {
+      db.query (`select skills.id_skills, skills.id_engineer, engineer.name, skills.id_skill, skill.skill_name
+      FROM skills
+      JOIN engineer ON engineer.id_engineer = skills.id_engineer
+      JOIN skill ON skill.id_skill = skills.id_skill`, (err, response) => {
+        if (!err) {
+          resolve (response)
+        } else {
+          reject (err);
+        }
+      });
+    });
+  },
   getSkills: (id_engineer) => {
     return new Promise ((resolve, reject) => {
       db.query (`SELECT skills.id_skills, engineer.name, skill.skill_name

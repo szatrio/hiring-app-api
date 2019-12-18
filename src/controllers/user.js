@@ -86,8 +86,7 @@ module.exports = {
                   message: 'error get email from database'
               })
         })          
-},
-
+  },
   editUser: (req, res) => {
     const id_user = req.params.id_user
     const {email, password, hash, role} = req.body

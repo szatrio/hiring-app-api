@@ -2,6 +2,18 @@ const model = require ('../models/skills');
 const form = require ('../helpers/form');
 
 module.exports = {
+  getAllSkills: (req, res) => {
+    model
+      .getAllSkills ()
+      .then (response => {
+        //resolve
+        form.success (res, response)
+      })
+      .catch (err => {
+        //reject
+        console.log (err);
+      });
+  },
   getSkills: (req, res) => {
     const id_engineer = req.params.id_engineer
     model

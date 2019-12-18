@@ -2,7 +2,16 @@ const db = require ('../Configs/db');
 module.exports = {
   getUser: () => {
     return new Promise ((resolve, reject) => {
-      db.query ('SELECT * FROM user', (err, response) => {
+      db.query (`SELECT user.id_user, user.email, user.password, user.role, engineer.name, engineer.description, engineer.location
+      FROM user
+      JOIN engineer
+      ON user.id_user=engineer.id_user
+      UNION ALL
+      SELECT user.id_user, user.email, user.password, user.role, company.name, company.description, company.location
+      FROM user
+      JOIN company
+      ON user.id_user=company.id_user
+      ORDER BY id_user`, (err, response) => {
         if (!err) {
           resolve (response);
         } else {
@@ -11,7 +20,7 @@ module.exports = {
       });
     });
   },
-  adduser: (data) => {
+  addUser: (data) => {
     return new Promise((resolve, reject) => {
       db.query('INSERT INTO user SET ?', data, (err, result) => {
         if (!err) {
