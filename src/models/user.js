@@ -1,4 +1,5 @@
 const db = require ('../Configs/db');
+
 module.exports = {
   getUser: () => {
     return new Promise ((resolve, reject) => {
@@ -19,28 +20,6 @@ module.exports = {
         }
       });
     });
-  },
-  addUser: (data) => {
-    return new Promise((resolve, reject) => {
-      db.query('INSERT INTO user SET ?', data, (err, result) => {
-        if (!err) {
-          resolve(result)
-        } else {
-          reject(new Error(err))
-        }
-      })
-    })
-  },
-  editUser: (data, id_user) => {
-    return new Promise((resolve, reject) => {
-      db.query('UPDATE user SET ? WHERE id_user = ?', [data, id_user], (err, result) => {
-        if (!err) {
-          resolve(result)
-        } else {
-          reject(new Error(err))
-        }
-      })
-    })
   },
   deleteUser: (id_user) => {
     return new Promise((resolve, reject) => {

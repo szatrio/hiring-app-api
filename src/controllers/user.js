@@ -1,9 +1,11 @@
+require('dotenv').config()
+
 const model = require ('../models/user');
 const form = require ('../helpers/form');
 const bcryptjs = require('bcryptjs')
 
 const jwt = require('jsonwebtoken')
-const jwtPrivateKey = 'hujanturunlagi'
+
 
 const saltRounds = 10
 
@@ -19,12 +21,16 @@ const validatePassword = (password) => {
 }
 
 module.exports = {
-  getUser: (_, res) => {
+  getUser: (req, res) => {
     model
       .getUser ()
       .then (response => {
         //resolve
-        form.success (res, response);
+        // form.success (res, response);
+        // console.log(response.id_user)
+        // console.log(req.user.id_user)
+        console.log(req)
+        res.json(response.filter(response => response.id_user == req.user.id_user))
       })
       .catch (err => {
         //reject
@@ -146,7 +152,7 @@ module.exports = {
             const password = req.body.password
 
             if (bcryptjs.compareSync(password, passwordHash)) {
-                const token = jwt.sign({ id_user: id_user }, jwtPrivateKey, { expiresIn: '1h' })
+                const token = jwt.sign({ id_user: id_user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
 
                 res.json({
                     status: 200,

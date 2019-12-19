@@ -1,10 +1,11 @@
 const express = require ('express')
 const controller = require('../controllers/engineer')
 const controllerskill = require('../controllers/skills')
+const auth = require('../helpers/auth')
 const Router = express.Router()
 
 Router
-    .get ('/', controller.getEngineer) 
+    .get ('/', auth.checkToken, controller.getEngineer) 
     .post ('/', controller.addEngineer) 
     .patch ('/:id_engineer', controller.editEngineer)
     .delete ('/:id_engineer', controller.deleteEngineer)

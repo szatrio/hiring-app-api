@@ -2,12 +2,13 @@ const model = require ('../models/company');
 const form = require ('../helpers/form');
 
 module.exports = {
-  getCompany: (_, res) => {
+  getCompany: (req, res) => {
     model
       .getCompany ()
       .then (response => {
         //resolve
-        form.success (res, response);
+        // form.success (res, response);
+        res.json(response.filter(response => response.id_user == req.user.id_user))
       })
       .catch (err => {
         //reject
