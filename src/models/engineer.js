@@ -17,7 +17,9 @@ module.exports = {
       pagination = `LIMIT ${data.limit} OFFSET ${data.page}`
     }
 
-    if(data.name != undefined){
+    if (data.name != undefined && data.skill != undefined){
+      search = `WHERE engineer.name LIKE '%${data.name}%' AND skill.skill_name LIKE '%${data.skill}%'`
+    }else if(data.name != undefined){
       search = `WHERE engineer.name LIKE '%${data.name}%'`
     }else if(data.skill != undefined){
       search = `WHERE skill.skill_name LIKE '%${data.skill}%'`
@@ -42,6 +44,22 @@ module.exports = {
       ${search}
       GROUP BY engineer.id_engineer 
       ${pagination} ${sort_by} ${order}`, (err, response) => {
+        if (!err) {
+          resolve (response);
+        } else {
+          reject (err);
+        }
+      });
+    });
+  },
+  getEngineerProfile: () => {
+    return new Promise ((resolve, reject) => {
+      db.query (`SELECT engineer.id_engineer, engineer.id_user, engineer.name, engineer.description, GROUP_CONCAT(DISTINCT skill.skill_name) as skills, engineer.location, engineer.birth, GROUP_CONCAT(DISTINCT showcase.showcase) as showcase, engineer.date_created, engineer.date_updated
+      FROM skills
+      JOIN skill ON skills.id_skill=skill.id_skill
+      RIGHT JOIN engineer ON skills.id_engineer=engineer.id_engineer
+      LEFT JOIN showcase ON engineer.id_engineer=showcase.id_engineer
+      GROUP BY engineer.id_engineer `, (err, response) => {
         if (!err) {
           resolve (response);
         } else {

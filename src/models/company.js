@@ -11,6 +11,17 @@ module.exports = {
       });
     });
   },
+  getCompanyProfile: () => {
+    return new Promise ((resolve, reject) => {
+      db.query ('SELECT * FROM company', (err, response) => {
+        if (!err) {
+          resolve (response);
+        } else {
+          reject (err);
+        }
+      });
+    });
+  },
   addCompany: (data) => {
     return new Promise((resolve, reject) => {
       db.query('INSERT INTO company SET ?', data, (err, result) => {

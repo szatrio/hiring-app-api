@@ -14,16 +14,30 @@ module.exports = {
       page
     }
 
-
     model
       .getEngineer (data)
       .then (response => {
         //resolve
-        // form.success (res, response);
+        form.success (res, response);
         console.log(response)
         console.log(req.user.id_user)
         // console.log(req.user.id_user)
 
+        // res.json(response.filter(response => response.id_user == req.user.id_user))
+      })
+      .catch (err => {
+        //reject
+        console.log (err);
+      });
+  },
+  getEngineerProfile: (req, res) => {
+    model
+      .getEngineerProfile ()
+      .then (response => {
+        //resolve
+        // console.log(response)
+        // console.log(req.user.id_user)
+        // console.log(req.user.id_user)
         res.json(response.filter(response => response.id_user == req.user.id_user))
       })
       .catch (err => {

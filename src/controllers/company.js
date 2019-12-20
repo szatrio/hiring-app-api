@@ -7,6 +7,18 @@ module.exports = {
       .getCompany ()
       .then (response => {
         //resolve
+        form.success (res, response);
+      })
+      .catch (err => {
+        //reject
+        console.log (err);
+      });
+  },
+  getCompanyProfile: (req, res) => {
+    model
+      .getCompany ()
+      .then (response => {
+        //resolve
         // form.success (res, response);
         res.json(response.filter(response => response.id_user == req.user.id_user))
       })

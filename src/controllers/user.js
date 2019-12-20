@@ -3,27 +3,33 @@ require('dotenv').config()
 const model = require ('../models/user');
 const form = require ('../helpers/form');
 const bcryptjs = require('bcryptjs')
-
 const jwt = require('jsonwebtoken')
-
+const { validateEmail, validatePassword} = require('../helpers/validate')
 
 const saltRounds = 10
 
-
-const validateEmail = (email) => {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  return re.test(email)
-}
-
-const validatePassword = (password) => {
-  var re = /(?=.*[a-z])(?=.*[0-9])/
-  return re.test(password)
-}
 
 module.exports = {
   getUser: (req, res) => {
     model
       .getUser ()
+      .then (response => {
+        //resolve
+        form.success (res, response);
+        // console.log(response.id_user)
+        // console.log(req.user.id_user)
+        // console.log(req)
+        // res.json(response.filter(response => response.id_user == req.user.id_user))
+      })
+      .catch (err => {
+        //reject
+        console.log (err);
+      });
+  },
+
+  getProfile: (req, res) => {
+    model
+      .getProfile ()
       .then (response => {
         //resolve
         // form.success (res, response);
@@ -45,6 +51,7 @@ module.exports = {
     
     model.emailCheck(email)
     .then(resultQuery => {
+          console.log("resiult", resultQuery)
           if (resultQuery.length === 0) {
             if (validateEmail(email) == true){
               if (validatePassword(password) == true){
@@ -82,14 +89,14 @@ module.exports = {
           }else {
             res.status(400).json({
                 status: 400,
-                message: 'email already exist'
+                message: 'Email already exist'
             })
             }
         })
           .catch(err => {
               res.status(400).json({
                   status: 400,
-                  message: 'error get email from database'
+                  message: 'Error get Email from Database'
               })
         })          
   },
@@ -131,6 +138,7 @@ module.exports = {
         })
       }      
   },
+  
   deleteUser: (req, res) => {
     const id_user = req.params.id_user
 
@@ -151,15 +159,19 @@ module.exports = {
             const passwordHash = resultQuery[0].password
             const password = req.body.password
 
+            // let refreshTokens = []
+
             if (bcryptjs.compareSync(password, passwordHash)) {
                 const token = jwt.sign({ id_user: id_user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
-
+                // const refreshToken = jwt.sign({ id_user: id_user }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' })
+                // refreshTokens.push(refreshToken)
                 res.json({
                     status: 200,
                     message: 'Login Success',
                     data: {
                         email,
-                        token
+                        token,
+                        // refreshToken
                     }
                 })
             } else {

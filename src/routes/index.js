@@ -5,6 +5,7 @@ const user = require ('./user');
 const skill = require ('./skill');
 const register = require('../controllers/user')
 const skills = require('../controllers/skills')
+const showcase = require('../controllers/showcase')
 
 const Router = express.Router ();
 
@@ -14,6 +15,7 @@ Router.use ('/user', user)
 Router.use ('/register', register.addUser)
 Router.use ('/skill', skill)
 Router.use ('/skills', skills.getAllSkills)
+Router.use ('/showcase', showcase.getAllShowcase)
 
 
 
