@@ -12,6 +12,32 @@ module.exports = {
       });
     });
   },
+  userCompany: () => {
+    return new Promise ((resolve, reject) => {
+      db.query (`SELECT user.id_user, user.email, user.password, company.id_company, company.name
+      FROM user
+      JOIN company ON user.id_user = company.id_user`, (err, response) => {
+        if (!err) {
+          resolve (response);
+        } else {
+          reject (err);
+        }
+      });
+    });
+  },
+  userEngineer: () => {
+    return new Promise ((resolve, reject) => {
+      db.query (`SELECT user.id_user, user.email, user.password, engineer.id_engineer, engineer.name
+      FROM user
+      JOIN engineer ON user.id_user = engineer.id_user`, (err, response) => {
+        if (!err) {
+          resolve (response);
+        } else {
+          reject (err);
+        }
+      });
+    });
+  },
   getProfile: () => {
     // return new Promise ((resolve, reject) => {
     //   db.query (`SELECT user.id_user, user.email, user.password, user.role, engineer.name, engineer.description, engineer.location

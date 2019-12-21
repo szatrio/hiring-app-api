@@ -8,7 +8,7 @@ const Router = express.Router()
 Router
     .get ('/', auth.checkToken, controller.getCompany)
     .get ('/profile', auth.checkToken, controller.getCompanyProfile) 
-    .post ('/', controller.addCompany)  
-    .patch ('/:id_company', controller.editCompany)
-    .delete ('/:id_company', controller.deleteCompany)
+    .post ('/',auth.checkToken,  controller.addCompany)  
+    .patch ('/:id_company',auth.checkToken,  controller.editCompany)
+    .delete ('/:id_company',auth.checkToken, controller.deleteCompany)
 module.exports = Router

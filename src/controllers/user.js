@@ -43,7 +43,38 @@ module.exports = {
         console.log (err);
       });
   },
-
+  userCompany: (req, res) => {
+    model
+      .userCompany ()
+      .then (response => {
+        //resolve
+        form.success (res, response);
+        // console.log(response.id_user)
+        // console.log(req.user.id_user)
+        // console.log(req)
+        // res.json(response.filter(response => response.id_user == req.user.id_user))
+      })
+      .catch (err => {
+        //reject
+        console.log (err);
+      });
+  },
+  userEngineer: (req, res) => {
+    model
+      .userEngineer ()
+      .then (response => {
+        //resolve
+        form.success (res, response);
+        // console.log(response.id_user)
+        // console.log(req.user.id_user)
+        // console.log(req)
+        // res.json(response.filter(response => response.id_user == req.user.id_user))
+      })
+      .catch (err => {
+        //reject
+        console.log (err);
+      });
+  },
   addUser: (req, res) => {
     let email = req.body.email
     let password = req.body.password

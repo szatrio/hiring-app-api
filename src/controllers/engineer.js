@@ -46,8 +46,9 @@ module.exports = {
       });
   },
   addEngineer: (req, res) => {
-    const { name, description, location, birth } = req.body
+    const { id_user, name, description, location, birth, } = req.body
     const data = {
+      id_user,
       name,
       description,
       location,
