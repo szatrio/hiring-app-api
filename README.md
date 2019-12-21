@@ -13,8 +13,8 @@ hiring-app-express-api an app for connecting between company and engineer on hir
 - CRUD Company
 - CRUD Engineer
 - CRUD User
-- Search engineer by skill
-- Sort engineer by name
+- Search engineer by name, skill
+- Sort engineer
 - Pagination
 - Login and Register With JWT
 ---
@@ -31,8 +31,8 @@ hiring-app-express-api an app for connecting between company and engineer on hir
 
 ### Clone
 ```bash
-$ git clone https://github.com/szatrio/hiring-app-express-api.git
-$ cd hiring-app-express-api
+$ git clone https://github.com/szatrio/hiring-app-api.git
+$ cd hiring-app-api
 $ npm install
 ```
 ---
