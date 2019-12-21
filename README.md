@@ -9,7 +9,7 @@
 ---
  
 ## Introduction
-hiring-app-express-api an app for connecting between company and engineer on hiring transactions. the main features are: 
+hiring-app-api an app for connecting between company and engineer on hiring transactions. the main features are: 
 - CRUD Company
 - CRUD Engineer
 - CRUD User
@@ -84,4 +84,6 @@ $ npm start
   - (GET)    http://localhost:8000/engineer/search Search data engineers by name
   - (GET)    http://localhost:8000/engineer/sort Sort data engineers by name
   - (GET)    http://localhost:8000/engineer/ create data engineers
+
+  and many more
 
