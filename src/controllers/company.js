@@ -20,6 +20,8 @@ module.exports = {
       .then (response => {
         //resolve
         // form.success (res, response);
+        console.log(response)
+        console.log(req.user)
         res.json(response.filter(response => response.id_user == req.user.id_user))
       })
       .catch (err => {
