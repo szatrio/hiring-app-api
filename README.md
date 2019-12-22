@@ -79,12 +79,14 @@ $ npm start
 - Company
   - (POST)    http://localhost:8000/company/ Create data companies
   - (GET)     http://localhost:8000/company/ Get data companies
+  - (GET)     http://localhost:8000/company/profile Get profile company
   - (PUT)     http://localhost:8000/company/:id_company Update data company
   - (DELETE)  http://localhost:8000/company/:id_company Delete data company
 
 - Engineer
   - (POST)    http://localhost:8000/engineer/ Create data engineers
   - (GET)     http://localhost:8000/engineer/ Get data engineers
+  - (GET)     http://localhost:8000/engineer/profile Get profile engineer
   - (PUT)     http://localhost:8000/engineer/:id_engineer Update data engineer
   - (DELETE)  http://localhost:8000/engineer/:id_engineer Delete data engineer
   - (GET)    http://localhost:8000/engineer/search Search data engineers by name
