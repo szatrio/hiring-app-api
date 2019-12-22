@@ -1,6 +1,9 @@
 # hiring-app-api
 
-<img src="https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png" height="120px" width="240px">
+<p align="center">
+    <img src="https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png" height="120px" width="240px">  
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" height="120px" width="240px">
+</p>
 
 ## Table of Contents
 - [Introduction](#introduction)
