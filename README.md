@@ -95,3 +95,7 @@ $ npm start
 
   and many more
 
+License
+----
+
+© Satrio Utomo
