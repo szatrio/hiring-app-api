@@ -13,22 +13,33 @@ module.exports = {
       limit,
       page
     }
-
-    model
-      .getEngineer (data)
-      .then (response => {
-        //resolve
-        form.success (res, response);
-        console.log(response)
-        console.log(req.user.id_user)
-        // console.log(req.user.id_user)
-
-        // res.json(response.filter(response => response.id_user == req.user.id_user))
-      })
-      .catch (err => {
-        //reject
-        console.log (err);
-      });
+    model.allEngineer()
+    .then(result =>{
+      console.log(result)
+      model.getEngineer (data)
+        .then (response => {
+          //resolve
+          // console.log(req)
+          if(req.query.limit != undefined && req.query.page != undefined){
+            res.json({
+              status: 200,
+              msg: 'Success',
+              "page" : req.query.page + " from " + Math.ceil(result.length/req.query.limit) + " pages",
+              "data": length.result + "results",
+              response 
+            })
+          }else(
+            form.success (res, response)
+          )
+          // console.log(response)
+          // console.log(req.user.id_user)
+          // console.log(req.user.id_user)
+        })
+        .catch (err => {
+          //reject
+          console.log (err);
+        });
+    }) 
   },
   getEngineerProfile: (req, res) => {
     model

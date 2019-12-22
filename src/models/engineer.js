@@ -11,6 +11,15 @@ module.exports = {
         search = '',
         sort_by = '',
         order = ''
+        // (resolve, reject) =>{
+        //   db.query('SELECT * FROM engineer'), (err, response) => {
+        //     if (!err) {
+        //       resolve (response);
+        //     } else {
+        //       reject (err)
+        //     }
+        //   }
+        // }
 
     if(data.limit != undefined && data.page != undefined){
       data.page = data.limit*(data.page-1)
@@ -34,6 +43,7 @@ module.exports = {
     if(data.order != undefined){
       order = `${data.order}`
     }
+
 
     return new Promise ((resolve, reject) => {
       db.query (`SELECT engineer.id_engineer, engineer.id_user, engineer.name, engineer.description, GROUP_CONCAT(DISTINCT skill.skill_name) as skills, engineer.location, engineer.birth, GROUP_CONCAT(DISTINCT showcase.showcase) as showcase, engineer.date_created, engineer.date_updated
@@ -99,6 +109,17 @@ module.exports = {
           reject(new Error(err))
         }
       })
+    })
+  },
+  allEngineer: () => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT * FROM engineer', (err, result) => {
+            if (!err) {
+                resolve(result)
+            } else {
+                reject(err)
+            }
+        })
     })
   },
   // searchEngineer: (name, skill) => {

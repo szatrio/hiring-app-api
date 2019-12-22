@@ -89,7 +89,7 @@ $ npm start
   - (PUT)     http://localhost:8000/engineer/:id_engineer Update data engineer
   - (DELETE)  http://localhost:8000/engineer/:id_engineer Delete data engineer
 
-  and many more
+  etc.
 
 License
 ----
