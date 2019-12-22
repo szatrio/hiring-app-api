@@ -1,6 +1,6 @@
 # hiring-app-api
 
-![Node JS Logo](https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png){:height="240px" width="480px"}
+![Node JS Logo](https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png){:height="120px" width="240px"}
 
 ## Table of Contents
 - [Introduction](#introduction)
