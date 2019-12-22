@@ -15,21 +15,25 @@ module.exports = {
     }
     model.allEngineer()
     .then(result =>{
-      console.log(result)
+      // console.log(result)
       model.getEngineer (data)
         .then (response => {
           //resolve
-          // console.log(req)
           if(req.query.limit != undefined && req.query.page != undefined){
             res.json({
               status: 200,
               msg: 'Success',
               "page" : req.query.page + " from " + Math.ceil(result.length/req.query.limit) + " pages",
-              "total": result.length + " results",
+              "total": "blabla" + result.length + " results",
               response 
             })
           }else(
-            form.success (res, response)
+            res.json({
+              status: 200,
+              msg: 'Success',
+              "total": result.length + " results",
+              response 
+            })
           )
           // console.log(response)
           // console.log(req.user.id_user)
