@@ -3,7 +3,6 @@
 <p align="center">
     <img src="https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png" height="120px" width="240px">  
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" height="120px">
-    <img src="https://cdn.worldvectorlogo.com/logos/javascript.svg" height="100px">
 </p>
 
 ## Table of Contents
@@ -89,9 +88,6 @@ $ npm start
   - (GET)     http://localhost:8000/engineer/profile Get profile engineer
   - (PUT)     http://localhost:8000/engineer/:id_engineer Update data engineer
   - (DELETE)  http://localhost:8000/engineer/:id_engineer Delete data engineer
-  - (GET)    http://localhost:8000/engineer/search Search data engineers by name
-  - (GET)    http://localhost:8000/engineer/sort Sort data engineers by name
-  - (GET)    http://localhost:8000/engineer/ create data engineers
 
   and many more
 
