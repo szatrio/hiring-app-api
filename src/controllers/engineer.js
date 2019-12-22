@@ -25,7 +25,7 @@ module.exports = {
               status: 200,
               msg: 'Success',
               "page" : req.query.page + " from " + Math.ceil(result.length/req.query.limit) + " pages",
-              "data": length.result + "results",
+              "total": result.length + " results",
               response 
             })
           }else(
