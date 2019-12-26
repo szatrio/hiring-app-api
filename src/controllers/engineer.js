@@ -13,7 +13,7 @@ module.exports = {
       limit,
       page
     }
-    model.allEngineer()
+    model.allEngineer(data)
     .then(result =>{
       // console.log(result)
       model.getEngineer (data)
