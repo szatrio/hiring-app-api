@@ -6,7 +6,7 @@ const Router = express.Router()
 
 
 Router
-    .get ('/', auth.checkToken, controller.getCompany)
+    .get ('/', controller.getCompany)
     .get ('/profile', auth.checkToken, controller.getCompanyProfile) 
     .post ('/',auth.checkToken,  controller.addCompany)  
     .patch ('/:id_company',auth.checkToken,  controller.editCompany)

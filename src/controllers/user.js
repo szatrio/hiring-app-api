@@ -187,6 +187,7 @@ module.exports = {
     model.loginUser(email)
         .then(resultQuery => {
             const id_user = resultQuery[0].id_user
+            const role = resultQuery[0].role
             const passwordHash = resultQuery[0].password
             const password = req.body.password
 
@@ -202,6 +203,8 @@ module.exports = {
                     data: {
                         email,
                         token,
+                        id_user,
+                        role
                         // refreshToken
                     }
                 })

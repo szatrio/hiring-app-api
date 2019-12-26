@@ -2,7 +2,6 @@ const express = require ('express')
 const controller = require('../controllers/user')
 const auth = require('../helpers/auth')
 const Router = express.Router()
-const jwt = require('jsonwebtoken')
 
 
 
@@ -20,20 +19,3 @@ Router
 
 module.exports = Router
 
-
-    function refreshToken(req, res) {
-    const refreshToken = req.body.token
-    console.log(req)
-    if (refreshToken == null) return res.sendStatus(401)
-    if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) res.sendStatus(403)
-        const accessToken = generateAccessToken({ "name":user.name})
-        res.json({ accessToken : accessToken})
-    })
-    }
-
-    function destroyToken(req, res) {
-        refreshTokens =  refreshTokens.filter(token => token !== req.body.token)
-        res.sendStatus(204)
-    }
