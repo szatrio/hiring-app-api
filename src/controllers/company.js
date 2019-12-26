@@ -30,7 +30,8 @@ module.exports = {
       });
   },
   addCompany: (req, res) => {
-    const { id_user, name, logo, location, description } = req.body
+    const id_user = req.headers.id_user
+    const { name, logo, location, description } = req.body
     const data = {
       id_user,
       name,

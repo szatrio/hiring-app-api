@@ -61,7 +61,8 @@ module.exports = {
       });
   },
   addEngineer: (req, res) => {
-    const { id_user, name, description, location, birth, } = req.body
+    const id_user = req.user.id_user
+    const { name, description, location, birth, } = req.body
     const data = {
       id_user,
       name,
@@ -110,24 +111,5 @@ module.exports = {
         console.log(err)
       })
   },
-  
-  // filterEngineer: (req, res) => {
-  //   let { name, skill, sort_by, order, limit, page} = req.query
-  //   page = limit*(page-1)
-  //   let data = {
-  //     name,
-  //     skill,
-  //     sort_by,
-  //     order,
-  //     limit,
-  //     page
-  //   }
-  //   model.filterEngineer(data)
-  //     .then(result => {
-  //       res.json(result)
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
+
 };

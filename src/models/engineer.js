@@ -113,6 +113,8 @@ module.exports = {
   },
   allEngineer: (data) => {
     
+    let search = ``
+
     if (data.name != undefined && data.skill != undefined){
       search = `WHERE engineer.name LIKE '%${data.name}%' AND skill.skill_name LIKE '%${data.skill}%'`
     }else if(data.name != undefined){

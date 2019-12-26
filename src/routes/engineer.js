@@ -6,7 +6,7 @@ const auth = require('../helpers/auth')
 const Router = express.Router()
 
 Router
-    .get ('/', controller.getEngineer)
+    .get ('/', auth.checkToken, controller.getEngineer)
     .get ('/profile', auth.checkToken, controller.getEngineerProfile) 
     .post ('/', auth.checkToken, controller.addEngineer) 
     .patch ('/:id_engineer', auth.checkToken, controller.editEngineer)
