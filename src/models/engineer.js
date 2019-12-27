@@ -11,15 +11,6 @@ module.exports = {
         search = '',
         sort_by = '',
         order = ''
-        // (resolve, reject) =>{
-        //   db.query('SELECT * FROM engineer'), (err, response) => {
-        //     if (!err) {
-        //       resolve (response);
-        //     } else {
-        //       reject (err)
-        //     }
-        //   }
-        // }
 
     if(data.limit != undefined && data.page != undefined){
       data.page = data.limit*(data.page-1)
@@ -53,7 +44,7 @@ module.exports = {
       LEFT JOIN showcase ON engineer.id_engineer=showcase.id_engineer
       ${search}
       GROUP BY engineer.id_engineer 
-      ${pagination} ${sort_by} ${order}`, (err, response) => {
+      ${sort_by} ${order} ${pagination}`, (err, response) => {
         if (!err) {
           resolve (response);
         } else {
