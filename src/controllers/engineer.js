@@ -23,8 +23,11 @@ module.exports = {
             res.json({
               status: 200,
               msg: 'Success',
-              "page" : req.query.page + " from " + Math.ceil(result.length/req.query.limit) + " pages",
-              "total": result.length + " results",
+              "page" : req.query.page,
+              "pages": Math.ceil(result.length/req.query.limit),
+              "total": result.length,
+              "nextLink":req.query.page+1,
+              "prevLink":req.query.page-1,
               response 
             })
           }else(
@@ -111,5 +114,4 @@ module.exports = {
         console.log(err)
       })
   },
-
 };

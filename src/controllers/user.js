@@ -194,7 +194,7 @@ module.exports = {
             // let refreshTokens = []
 
             if (bcryptjs.compareSync(password, passwordHash)) {
-                const token = jwt.sign({ id_user: id_user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+                const token = jwt.sign({ id_user: id_user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' })
                 // const refreshToken = jwt.sign({ id_user: id_user }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' })
                 // refreshTokens.push(refreshToken)
                 res.json({

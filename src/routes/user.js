@@ -14,8 +14,6 @@ Router
     .patch ('/:id_user', auth.checkToken, controller.editUser)
     .delete ('/:id_user', auth.checkToken, controller.deleteUser)
     .post('/login', controller.loginUser)
-    // .post('/token', refreshToken )
-    // .delete('/logout', destroyToken )
 
 module.exports = Router
 
