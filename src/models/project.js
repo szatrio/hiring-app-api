@@ -2,7 +2,10 @@ const db = require ('../Configs/db');
 module.exports = {
   getProject: () => {
     return new Promise ((resolve, reject) => {
-      db.query (`select * from project`, (err, response) => {
+      db.query (`SELECT project.id_project, project.name_project, project.status, company.id_company, company.name as company, engineer.id_engineer, engineer.name as engineer
+      FROM project
+      JOIN company ON company.id_company = project.id_company
+      LEFT JOIN engineer ON engineer.id_engineer = project.id_engineer`, (err, response) => {
         if (!err) {
           resolve (response)
         } else {
@@ -11,10 +14,10 @@ module.exports = {
       });
     });
   },
-  addProject: (status, id_company, id_engineer) => {
+  addProject: (name_project, status, id_company, id_engineer) => {
     return new Promise((resolve, reject) => {
-      db.query(`INSERT INTO project (status, id_company, id_engineer)
-      VALUES (?, ?, ?)`, [status, id_company, id_engineer], (err, result) => {
+      db.query(`INSERT INTO project (name_project, status, id_company, id_engineer)
+      VALUES (?, ?, ?, ?)`, [name_project, status, id_company, id_engineer], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -23,9 +26,9 @@ module.exports = {
       })
     })
   },
-  editProject: (status, id_company, id_engineer, id_project) => {
+  editProject: (name_project, status, id_company, id_engineer, id_project) => {
     return new Promise((resolve, reject) => {
-      db.query('UPDATE project SET status=?, id_company=?, id_engineer=? WHERE id_project = ?', [status, id_company, id_engineer, id_project], (err, result) => {
+      db.query('UPDATE project SET name_project=?, status=?, id_company=?, id_engineer=? WHERE id_project = ?', [name_project, status, id_company, id_engineer, id_project], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
