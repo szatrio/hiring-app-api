@@ -14,6 +14,20 @@ module.exports = {
         console.log (err);
       });
   },
+  getCompanyProject: (req, res) => {
+    const id_user = req.user.id_user
+    console.log(id_user,"ini d user")
+    model
+      .getCompanyProject (id_user)
+      .then (response => {
+        //resolve
+        form.success (res, response);
+      })
+      .catch (err => {
+        //reject
+        console.log (err);
+      });
+  },
   addProject: (req, res) => {
     const name_project = req.body.name_project
     const status = req.body.status

@@ -63,6 +63,22 @@ module.exports = {
         console.log (err);
       });
   },
+  getEngineerById: (req, res) => {
+    const id = req.params.id_engineer
+    model
+      .getEngineerById (id)
+      .then (response => {
+        //resolve
+        // console.log(response)
+        // console.log(req.user.id_user)
+        // console.log(req.user.id_user)
+        form.success (res, response);
+      })
+      .catch (err => {
+        //reject
+        console.log (err);
+      });
+  },
   addEngineer: (req, res) => {
     const id_user = req.user.id_user
     const { name, description, location, birth, } = req.body

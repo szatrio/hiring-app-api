@@ -4,7 +4,8 @@ const auth = require('../helpers/auth')
 const Router = express.Router()
 
 Router
-    .get ('/', auth.checkToken, controller.getProject) 
+    .get ('/', auth.checkToken, controller.getProject)
+    .get ('/mycompany', auth.checkToken, controller.getCompanyProject) 
     .post ('/', auth.checkToken, controller.addProject)  
     .patch ('/:id_project', auth.checkToken, controller.editProject)
     .delete ('/:id_project', auth.checkToken, controller.deleteProject)

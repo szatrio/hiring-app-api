@@ -7,7 +7,8 @@ const Router = express.Router()
 
 Router
     .get ('/', auth.checkToken, controller.getEngineer)
-    .get ('/profile', auth.checkToken, controller.getEngineerProfile) 
+    .get ('/profile', auth.checkToken, controller.getEngineerProfile)
+    .get ('/:id_engineer', auth.checkToken, controller.getEngineerById) 
     .post ('/', auth.checkToken, controller.addEngineer) 
     .patch ('/:id_engineer', auth.checkToken, controller.editEngineer)
     .delete ('/:id_engineer', auth.checkToken, controller.deleteEngineer)
