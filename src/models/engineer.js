@@ -71,6 +71,7 @@ module.exports = {
   },
   getEngineerById: (id) => {
     return new Promise ((resolve, reject) => {
+      console.log(id, "ini id di model")
       db.query (`SELECT engineer.id_engineer, engineer.id_user, engineer.name, engineer.description, GROUP_CONCAT(DISTINCT skill.skill_name) as skills, engineer.location, engineer.birth, GROUP_CONCAT(DISTINCT showcase.showcase) as showcase, engineer.e_salary, engineer.date_created, engineer.date_updated
       FROM skills
       JOIN skill ON skills.id_skill=skill.id_skill

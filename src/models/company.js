@@ -22,6 +22,18 @@ module.exports = {
       });
     });
   },
+  getCompanyById: (id) => {
+    return new Promise ((resolve, reject) => {
+      console.log(id, "ini id di model")
+      db.query (`SELECT * FROM company where id_user=${id}`, (err, response) => {
+        if (!err) {
+          resolve (response);
+        } else {
+          reject (err);
+        }
+      });
+    });
+  },
   addCompany: (data) => {
     return new Promise((resolve, reject) => {
       db.query('INSERT INTO company SET ?', data, (err, result) => {

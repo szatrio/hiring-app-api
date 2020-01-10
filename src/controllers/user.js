@@ -1,6 +1,8 @@
 require('dotenv').config()
 
 const model = require ('../models/user');
+const modelEngineer = require ('../models/engineer');
+const modelCompany = require ('../models/company');
 const form = require ('../helpers/form');
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -183,38 +185,85 @@ module.exports = {
   },
   loginUser: (req, res) => {
     const email = req.body.email
-
     model.loginUser(email)
         .then(resultQuery => {
             const id_user = resultQuery[0].id_user
             const role = resultQuery[0].role
             const passwordHash = resultQuery[0].password
             const password = req.body.password
+            let userEngineer = ''
+            let userCompany = ''
 
-            // let refreshTokens = []
-
-            if (bcryptjs.compareSync(password, passwordHash)) {
-                const token = jwt.sign({ id_user: id_user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' })
-                // const refreshToken = jwt.sign({ id_user: id_user }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' })
-                // refreshTokens.push(refreshToken)
-                res.json({
-                    status: 200,
-                    message: 'Login Success',
-                    data: {
-                        email,
-                        token,
-                        id_user,
-                        role
-                        // refreshToken
+            if(role == 2){
+              modelEngineer.getEngineerById(id_user)
+              .then(eng => {
+                  userEngineer = eng[0]
+                  // console.log(res[0], "ini userEngineer")  
+                  console.log(userEngineer, "ini userEngineer")
+                    if (bcryptjs.compareSync(password, passwordHash)) {
+                        const token = jwt.sign({ id_user: id_user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' })
+                        // const refreshToken = jwt.sign({ id_user: id_user }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' })
+                        // refreshTokens.push(refreshToken)
+                        res.json({
+                            status: 200,
+                            message: 'Login Success',
+                            data: {
+                                email,
+                                token,
+                                id_user,
+                                role,
+                                userEngineer,
+                                userCompany
+                                // refreshToken
+                            }
+                        })
+                    } else {
+                        res.json({
+                            status: 400,
+                            message: 'Password is incorrect'
+                        })
                     }
                 })
-            } else {
-                res.json({
-                    status: 400,
-                    message: 'Password is incorrect'
+              .catch( err => {
+                console.log(err, "get id engineer error")
+              })
+            }else if(role == 1){
+              modelCompany.getCompanyById(id_user)
+              .then(comp => {
+                  userCompany = comp[0]
+                  console.log(comp, "ini data company")  
+                  console.log(userCompany, "ini userCompany")
+                    if (bcryptjs.compareSync(password, passwordHash)) {
+                        const token = jwt.sign({ id_user: id_user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' })
+                        // const refreshToken = jwt.sign({ id_user: id_user }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' })
+                        // refreshTokens.push(refreshToken)
+                        res.json({
+                            status: 200,
+                            message: 'Login Success',
+                            data: {
+                                email,
+                                token,
+                                id_user,
+                                role,
+                                userEngineer,
+                                userCompany
+                                // refreshToken
+                            }
+                        })
+                    } else {
+                        res.json({
+                            status: 400,
+                            message: 'Password is incorrect'
+                        })
+                    }
                 })
+              .catch( err => {
+                console.log(err, "get id company error")
+              })
             }
+            // let refreshTokens = []
         })
+
         .catch(err => {
             console.log(err)
             res.status(400).json({
