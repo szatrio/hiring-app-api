@@ -1,4 +1,4 @@
-const db = require ('../Configs/db');
+const db = require ('../configs/db');
 
 module.exports = {
   getUser: () => {
