@@ -17,12 +17,8 @@ module.exports = {
       pagination = `LIMIT ${data.limit} OFFSET ${data.page}`
     }
 
-    if (data.name != undefined && data.skill != undefined){
-      search = `WHERE engineer.name LIKE '%${data.name}%' AND skill.skill_name LIKE '%${data.skill}%'`
-    }else if(data.name != undefined){
-      search = `WHERE engineer.name LIKE '%${data.name}%'`
-    }else if(data.skill != undefined){
-      search = `WHERE skill.skill_name LIKE '%${data.skill}%'`
+    if (data.name!= undefined){
+      search = `WHERE engineer.name LIKE '%${data.name}%' OR skill.skill_name LIKE '%${data.name}%'`
     }
 
     if(data.sort_by == 'skill'){
