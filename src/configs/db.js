@@ -1,10 +1,13 @@
 const mysql = require ('mysql');
-const db = mysql.createConnection ({
+
+const db_config = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-});
+}
+
+const db = mysql.createConnection(db_config);
 
 db.connect (err => {
   if (err){
@@ -13,7 +16,7 @@ db.connect (err => {
 });
 
 const handleDisconnect = () => {
-  connection = mysql.createConnection(db); // Recreate the connection, since
+  connection = mysql.createConnection(db_config); // Recreate the connection, since
                                                   // the old one cannot be reused.
 
   connection.connect(function(err) {              // The server is either down
