@@ -7,17 +7,9 @@ const db_config = {
   database: process.env.DB_NAME,
 }
 
-const db = mysql.createConnection(db_config);
+const connection = mysql.createConnection(db_config)
 
-db.connect (err => {
-  if (err){
-    handleDisconnect();
-  }
-});
-
-const handleDisconnect = () => {
-  connection = mysql.createConnection(db_config); // Recreate the connection, since
-                                                  // the old one cannot be reused.
+const handleDisconnect = () => {                                                 // the old one cannot be reused.
 
   connection.connect(function(err) {              // The server is either down
     if(err) {                                     // or restarting (takes a while sometimes).
@@ -28,14 +20,14 @@ const handleDisconnect = () => {
                                           // If you're also serving http, display a 503 error.
   connection.on('error', function(err) {
     console.log('db error', err);
-    // if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
       handleDisconnect();                         // lost due to either server restart, or a
-    // } else {                                      // connnection idle timeout (the wait_timeout
-    //   throw err;                                  // server variable configures this)
-    // }
+    } else {                                      // connnection idle timeout (the wait_timeout
+      throw err;                                  // server variable configures this)
+    }
   });
 }
 
+handleDisconnect();
 
-
-module.exports = db;
+// module.exports = db;
