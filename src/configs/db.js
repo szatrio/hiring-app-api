@@ -9,8 +9,9 @@ const db_config = {
 
 const connection = mysql.createConnection(db_config)
 
-const handleDisconnect = () => {                                                 // the old one cannot be reused.
 
+const handleDisconnect = () => {                                                 // the old one cannot be reused.
+  
   connection.connect(function(err) {              // The server is either down
     if(err) {                                     // or restarting (takes a while sometimes).
       console.log('error when connecting to db:', err);
@@ -30,4 +31,4 @@ const handleDisconnect = () => {                                                
 
 handleDisconnect();
 
-// module.exports = db;
+module.exports = connection;
